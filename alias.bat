@@ -6,4 +6,6 @@ REM Alias Config
 doskey np=notepad.exe $*
 doskey npp="C:\Program Files\Notepad++\notepad++.exe" $*
 
+echo "Alias OK !!"
+
 @echo on
