@@ -3,27 +3,27 @@
 REM ********************
 REM Func:netspeed.bat
 REM 偵測網路速度
-REM Create:2017/11/16 By Robert Lai
-REM loopcount 執行多少次
-REM pingcount Ping幾次
-REM sleeptime 間隔多久
+REM author：Robert Lai
+REM update History
+REM 2017/11/17 by Robert add timestemp function
 REM ********************
 
 REM Initialization Parameter
 set MyDate=%date:~0,4%%date:~5,2%%date:~8,2%
 set jobtime=%time: =0%
 set MyTime=%jobtime:~0,2%%jobtime:~3,2%%jobtime:~6,2%
+set AppName=netspeed
+set StepName01=loop
 
-set loopcount=120
+set loopcount=60
 set pingcount=10
-
-set sleepTime=30
+set sleepTime=60
 
 echo loopcount %loopcount%
 echo pingcount %pingcount%
 echo sleepTime %sleepTime%
 
-echo "start time %MyDate%-%MyTime%"
+call:timeStamp 1 %AppName%
 
 :loop
 
@@ -33,10 +33,19 @@ timeout /t %sleepTime%
 echo.
 echo loopcount  %loopcount%
 
-echo "now time is %MyDate%-%MyTime%"
+call:timeStamp 2 %StepName01%
 
 if %loopcount% GTR 0 goto loop
 
-echo "end time is %MyDate%-%MyTime%"
+call:timeStamp 2 %AppName%
+
+
+:timeStamp %1 %2
+rem parm1 為 1 代表start 為2代表stop
+if %1 equ 1 set STR=Start
+if %1 equ 2 set STR=End
+echo %date:~0,10% %time% %2 %STR% *****
+@echo:
+goto:eof
 
 @echo on
